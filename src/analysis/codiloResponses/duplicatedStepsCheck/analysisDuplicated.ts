@@ -1,5 +1,6 @@
 import { authenticate, pendingItems } from '../../../utils/requests'
-import resultAnalysis4 from './output/resultAnalysis4.json'
+import { writeJson } from '../../../utils/writeFiles'
+import steps from './output/steps4.json'
 
 interface step {
   cnj: string,
@@ -50,7 +51,7 @@ export const getAllResponses = async (CNJs: string[]) => {
 
   const token = await authenticate()
 
-  let result = resultAnalysis4
+  let result = steps
 
   let count = 0
   for (const row of CNJs) {
@@ -61,13 +62,7 @@ export const getAllResponses = async (CNJs: string[]) => {
     console.log(`Done ${count} out of ${CNJs.length}...`)
   }
 
-  const print = JSON.stringify(result)
-  var fs = require('fs')
-  fs.writeFile('./src/analysis/codiloResponses/duplicatedStepsCheck/output/resultAnalysis4.json', print, 'utf8', function (err: any) {
-    if (err) throw err
-    console.log('complete')
-  })
-  console.log('File Wrote')
+  writeJson(result, 'analysis/codiloResponses/duplicatedStepsCheck/output', 'steps4')
 }
 
 const getNulls = (steps: step[], isDescription?: boolean): step[] => {
@@ -91,8 +86,14 @@ export const categorizeNulls = (steps: step[]): refinedStep[] => {
   let nullSteps = getNulls(steps)
   let result: refinedStep[] = []
   for (const step of nullSteps) {
-    const index = result.map(function (item) { return item.cnj }).indexOf(step.cnj)
-    index > 0 ? result[index].ocurrences++ : result.push({
+    const index = result.findIndex(
+      object => object.cnj === step.cnj &&
+        object.source === step.source &&
+        object.platform === step.platform &&
+        object.search === step.search &&
+        object.query === step.query
+    )
+    index >= 0 ? result[index].ocurrences++ : result.push({
       cnj: step.cnj,
       source: step.source,
       platform: step.platform,

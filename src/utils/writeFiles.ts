@@ -1,11 +1,10 @@
 import ObjectsToCsv from 'objects-to-csv'
 
-export const writeJson = (input: any, fileName: string) => {
+export const writeJson = (input: any, filePath: string, fileName: string) => {
   const print = JSON.stringify(input)
   var fs = require('fs')
-  fs.writeFile(`./src/analysis/codiloResponses/output/${fileName}.json`, print, 'utf8', function (err: any) {
+  fs.writeFile(`./src/${filePath}/${fileName}.json`, print, 'utf8', function (err: any) {
     if (err) throw err
-    console.log('complete')
   })
   console.log('File Wrote')
 }
