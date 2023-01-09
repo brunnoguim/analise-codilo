@@ -1,5 +1,5 @@
-import credentials from '../secrets/credentials.json'
-import { authenticate, pendingItems, writeJson } from '../../../utils/requests'
+import { authenticate, pendingItems } from '../../../utils/requests'
+import { writeJson } from '../../../utils/writeFiles'
 
 export const getUnifiedQueries = (listObject: any) => {
   let consultas = []
@@ -32,7 +32,7 @@ export const getUnifiedQueries = (listObject: any) => {
 
 export const saveResponses = async (CNJs: string[]) => {
 
-  const token = await authenticate(credentials.id, credentials.secret)
+  const token = await authenticate()
 
   let count = 0
   for (const row of CNJs) {

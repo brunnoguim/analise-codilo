@@ -1,11 +1,15 @@
 import axios from 'axios'
+import credentials from './secrets/credentials.json'
+
+const id = credentials.id
+const secret = credentials.secret
 
 const URL = {
   auth: 'https://auth.codilo.com.br/oauth/token',
   pendentes: 'https://api.push.codilo.com.br/v1/pendentes'
 }
 
-export const authenticate = async (id: string, secret: string) => {
+export const authenticate = async () => {
   try {
     const body = {
       grant_type: 'client_credentials',

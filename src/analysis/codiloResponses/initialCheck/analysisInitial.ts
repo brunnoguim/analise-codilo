@@ -1,5 +1,4 @@
-import credentials from '../secrets/credentials.json'
-import resultCodilo from '../output/resultCodilo.json'
+import resultCodilo from './output/resultCodilo.json'
 import { authenticate, pendingItems } from '../../../utils/requests'
 
 export const analyzeResponse = (response: any) => {
@@ -29,7 +28,7 @@ export const analyzeResponse = (response: any) => {
 
 export const getAllResponses = async (CNJs: string[]) => {
 
-  const token = await authenticate(credentials.id, credentials.secret)
+  const token = await authenticate()
 
   let result = resultCodilo
 

@@ -6,5 +6,7 @@
 /src/analysis/codiloResponses/initialCheck/output
 /src/analysis/codiloResponses/unificadaCheck/input
 /src/analysis/codiloResponses/unificadaCheck/output
+/src/analysis/codiloResponses/duplicatedStepsCheck/input
+/src/analysis/codiloResponses/duplicatedStepsCheck/output
 /src/analysis/lawsuitsProjurisEnterprise/input
 /src/analysis/lawsuitsProjurisEnterprise/output
