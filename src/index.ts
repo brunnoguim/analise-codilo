@@ -1,6 +1,4 @@
-import { getFiles } from './analysis/codiloResponses/filesCheck/analysisFiles'
-import lawsuits from './analysis/codiloResponses/initialCheck/input/lawsuitsCodilo.json'
+import { getLongSteps } from './analysis/codiloResponses/filesCheck/analysisFiles'
+import { writeJson } from './utils/writeFiles'
 
-const batch = lawsuits.slice(300)
-
-getFiles(batch, 'batch5')
+writeJson(getLongSteps(100), 'analysis/codiloResponses/fileSCheck/output', 'longSteps')

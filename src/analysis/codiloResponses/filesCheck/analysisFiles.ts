@@ -1,5 +1,28 @@
 import { authenticate, pendingItems } from '../../../utils/requests'
 import { writeJson } from '../../../utils/writeFiles'
+import batch1 from './input/batch1.json'
+import batch2 from './input/batch2.json'
+import batch3 from './input/batch3.json'
+import batch4 from './input/batch4.json'
+
+interface file {
+  id: string | null,
+  mimeType: string | null,
+  description: string | null,
+  url: string | null,
+}
+
+interface step {
+  cnj: string,
+  source: string,
+  platform: string,
+  search: string,
+  query: string,
+  date: string,
+  title: string | null,
+  description: string | null,
+  files: file[]
+}
 
 const filterFiles = (response: any) => {
 
@@ -49,3 +72,36 @@ export const getFiles = async (CNJs: string[], fileName: string) => {
   writeJson(result, 'analysis/codiloResponses/filesCheck/input', fileName)
 }
 
+interface filesCount {
+  filesCount: number,
+  ocurrences: number
+}
+
+export const countFiles = (): filesCount[] => {
+
+  //@ts-ignore
+  const input = batch1.concat(batch2, batch3, batch4)
+
+  let result: filesCount[] = []
+
+  for (const step of input) {
+    const index = result.findIndex(object => object.filesCount === step.files.length)
+    index >= 0 ? result[index].ocurrences++ : result.push({ filesCount: step.files.length, ocurrences: 1 })
+  }
+
+  return result
+}
+
+export const getLongSteps = (filesCount: number): step[] => {
+
+  //@ts-ignore
+  const input = batch1.concat(batch2, batch3, batch4)
+
+  let result: step[] = []
+
+  for (const step of input) {
+    step.files.length >= filesCount && (result.push(step))
+  }
+
+  return result
+}
