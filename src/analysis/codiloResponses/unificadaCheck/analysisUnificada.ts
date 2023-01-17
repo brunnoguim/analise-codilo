@@ -39,7 +39,7 @@ export const saveResponses = async (CNJs: string[]) => {
     const response = await pendingItems(token, row)
     const result = response.data.list[0]
 
-    if (!!result) { writeJson(result, result.cnj) } else { console.log(`${row} missing info`) }
+    // if (!!result) { writeJson(result, result.cnj) } else { console.log(`${row} missing info`) }
     count++
     console.log(`Done ${count} out of ${CNJs.length}...`)
   }
@@ -106,8 +106,6 @@ export const detailProps = (input: any): any => {
 
   return result
 }
-
-
 
 export const responsesFunnel = (input: any): any => {
 
@@ -275,6 +273,8 @@ export const responsesFunnel = (input: any): any => {
   // console.log(filteredComarca.length)
   // console.log(filteredCompetencia.length)
 
+  console.log(filteredCompetencia)
+
   const returnCNJs = (input: any): any => {
     let result = []
 
@@ -288,5 +288,5 @@ export const responsesFunnel = (input: any): any => {
     return result
   }
 
-  console.log(returnCNJs(filteredCompetencia))
+  // console.log(returnCNJs(filteredCompetencia))
 }
