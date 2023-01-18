@@ -37,3 +37,15 @@ export const pendingItems = async (token: string, CNJ: string) => {
     return error
   }
 }
+
+export const downloadFile = async (token: string, path: string) => {
+  try {
+    const headers = {
+      headers: { 'Authorization': `Bearer ${token}` }
+    }
+    const result = await axios.get(path, headers)
+    return result
+  } catch (error) {
+    return error
+  }
+}

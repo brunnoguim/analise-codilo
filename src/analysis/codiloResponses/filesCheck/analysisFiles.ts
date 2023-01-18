@@ -1,4 +1,4 @@
-import { authenticate, pendingItems } from '../../../utils/requests'
+import { authenticate, pendingItems, downloadFile } from '../../../utils/requests'
 import { writeJson } from '../../../utils/writeFiles'
 import batch1 from './input/batch1.json'
 import batch2 from './input/batch2.json'
@@ -104,4 +104,38 @@ export const getLongSteps = (filesCount: number): step[] => {
   }
 
   return result
+}
+
+export const getURLs = (): string[] => {
+
+  //@ts-ignore
+  const input = batch1.concat(batch2, batch3, batch4)
+
+  let result: string[] = []
+
+  for (const step of input) {
+    for (const file of step.files) {
+      result.push(file.url)
+    }
+  }
+
+  return result
+}
+
+export const checkFiles = async (urls: string[]) => {
+
+  const token = await authenticate()
+
+  let result: string[] = []
+
+  let count = 1
+
+  for (const url of urls) {
+    const response: any = await downloadFile(token, url)
+    !!response.status && response.status === 200 ? null : result.push(url)
+    console.log(`Done ${count} out of ${urls.length}`)
+    count++
+  }
+
+  writeJson(result, 'analysis/codiloResponses/filesCheck/output', 'errorFiles')
 }
