@@ -1,0 +1,22 @@
+[
+  {
+    "degreeType": "1",
+    "ocurrences": 347
+  },
+  {
+    "degreeType": "2",
+    "ocurrences": 206
+  },
+  {
+    "degreeType": null,
+    "ocurrences": 138
+  },
+  {
+    "degreeType": "1|2",
+    "ocurrences": 29
+  },
+  {
+    "degreeType": "3",
+    "ocurrences": 21
+  }
+]

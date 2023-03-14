@@ -12,6 +12,7 @@ const URL = {
 export const authenticate = async () => {
   try {
     const body = {
+
       grant_type: 'client_credentials',
       id: id,
       secret: secret
